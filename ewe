@@ -151,7 +151,7 @@ button.MouseButton1Click:Connect(function()
 		task.wait(0.05)
 	end
 
-	button.Text = "Please wait!"
+	button.Text = "Please wait the bot!"
 	button.BackgroundColor3 = Color3.fromRGB(0, 200, 80)
 	button.Active = false
 	button.AutoButtonColor = false
