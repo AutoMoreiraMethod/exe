@@ -10,11 +10,11 @@ gui.Name = "AutoBuyGUI"
 gui.ResetOnSpawn = false
 
 local ok, err = pcall(function()
-    gui.Parent = player:WaitForChild("PlayerGui")
+	gui.Parent = player:WaitForChild("PlayerGui")
 end)
 if not ok or not gui.Parent then
-    -- some executors (like Delta) block PlayerGui; try CoreGui
-    gui.Parent = game:GetService("CoreGui")
+	-- some executors (like Delta) block PlayerGui; try CoreGui
+	gui.Parent = game:GetService("CoreGui")
 end
 
 ---------------------------------------------------------
@@ -38,7 +38,7 @@ local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 36)
 title.Position = UDim2.new(0, 0, 0, 6)
 title.BackgroundTransparency = 1
-title.Text = "STEAL A BRAINROT  •  AUTO MOREIRA V2"
+title.Text = "STEAL A BRAINROT\nAUTO MOREIRA V2"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.TextSize = 15
 title.Font = Enum.Font.GothamBold
@@ -79,8 +79,8 @@ Instance.new("UICorner", fill).CornerRadius = UDim.new(0,6)
 
 local gradient = Instance.new("UIGradient", fill)
 gradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(255,0,0)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,255))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255,0,0)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,255))
 }
 
 ---------------------------------------------------------
@@ -92,44 +92,44 @@ local dragOffset = Vector2.new(0,0)
 
 -- helper: clamp so frame stays on screen (optional)
 local function clampPosition(posX, posY)
-    local screenW, screenH = workspace.CurrentCamera.ViewportSize.X, workspace.CurrentCamera.ViewportSize.Y
-    local fw, fh = frame.AbsoluteSize.X, frame.AbsoluteSize.Y
-    posX = math.clamp(posX, 0, math.max(0, screenW - fw))
-    posY = math.clamp(posY, 0, math.max(0, screenH - fh))
-    return posX, posY
+	local screenW, screenH = workspace.CurrentCamera.ViewportSize.X, workspace.CurrentCamera.ViewportSize.Y
+	local fw, fh = frame.AbsoluteSize.X, frame.AbsoluteSize.Y
+	posX = math.clamp(posX, 0, math.max(0, screenW - fw))
+	posY = math.clamp(posY, 0, math.max(0, screenH - fh))
+	return posX, posY
 end
 
 title.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        local mousePos = UserInputService:GetMouseLocation() -- Vector2
-        -- mouse location is screen coords; frame.AbsolutePosition is top-left on screen
-        dragOffset = Vector2.new(mousePos.X - frame.AbsolutePosition.X, mousePos.Y - frame.AbsolutePosition.Y)
-        -- capture input end via Changed (should still work)
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		local mousePos = UserInputService:GetMouseLocation() -- Vector2
+		-- mouse location is screen coords; frame.AbsolutePosition is top-left on screen
+		dragOffset = Vector2.new(mousePos.X - frame.AbsolutePosition.X, mousePos.Y - frame.AbsolutePosition.Y)
+		-- capture input end via Changed (should still work)
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
 end)
 
 -- also stop dragging if title detects InputEnded
 title.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = false
-    end
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+	end
 end)
 
 -- Heartbeat loop to move the frame while dragging
 RunService.Heartbeat:Connect(function()
-    if dragging then
-        local mousePos = UserInputService:GetMouseLocation()
-        local targetX = mousePos.X - dragOffset.X
-        local targetY = mousePos.Y - dragOffset.Y
-        targetX, targetY = clampPosition(targetX, targetY)
-        frame.Position = UDim2.new(0, targetX, 0, targetY)
-    end
+	if dragging then
+		local mousePos = UserInputService:GetMouseLocation()
+		local targetX = mousePos.X - dragOffset.X
+		local targetY = mousePos.Y - dragOffset.Y
+		targetX, targetY = clampPosition(targetX, targetY)
+		frame.Position = UDim2.new(0, targetX, 0, targetY)
+	end
 end)
 
 ---------------------------------------------------------
@@ -137,22 +137,22 @@ end)
 ---------------------------------------------------------
 local running = false
 button.MouseButton1Click:Connect(function()
-    if running then return end
-    running = true
+	if running then return end
+	running = true
 
-    button.Text = "Auto Moreira starting..."
-    button.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
+	button.Text = "Auto Moreira starting..."
+	button.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
 
-    loadingBar.Visible = true
-    fill.Size = UDim2.new(0, 0, 1, 0)
+	loadingBar.Visible = true
+	fill.Size = UDim2.new(0, 0, 1, 0)
 
-    for i = 1, 100 do
-        fill.Size = UDim2.new(i / 100, 0, 1, 0)
-        task.wait(0.05)
-    end
+	for i = 1, 100 do
+		fill.Size = UDim2.new(i / 100, 0, 1, 0)
+		task.wait(0.05)
+	end
 
-    button.Text = "Please wait!"
-    button.BackgroundColor3 = Color3.fromRGB(0, 200, 80)
-    button.Active = false
-    button.AutoButtonColor = false
+	button.Text = "Please wait!"
+	button.BackgroundColor3 = Color3.fromRGB(0, 200, 80)
+	button.Active = false
+	button.AutoButtonColor = false
 end)
