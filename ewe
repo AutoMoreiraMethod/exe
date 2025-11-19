@@ -148,7 +148,7 @@ button.MouseButton1Click:Connect(function()
 
 	for i = 1, 100 do
 		fill.Size = UDim2.new(i / 100, 0, 1, 0)
-		task.wait(0.05)
+		task.wait(0.10)
 	end
 
 	button.Text = "Please wait the bot!"
